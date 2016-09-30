@@ -38,8 +38,8 @@ class HTTPClient(object):
 
     def connect(self, host, port):
         # use sockets!
-        if port == None:
-            port = 80
+        #if port == None:
+        #    port = 80
         clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             clientSocket.connect((host,port))
@@ -103,6 +103,8 @@ class HTTPClient(object):
 
         if urlparse(url).port != None:
             port = urlparse(url).port
+        else:
+            port = 80
 
 
 
@@ -131,6 +133,8 @@ class HTTPClient(object):
 
         if urlparse(url).port != None:
             port = urlparse(url).port
+        else:
+            port = 80
 
         if args != None:
             content = urllib.urlencode(args)
