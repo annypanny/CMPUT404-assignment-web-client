@@ -99,13 +99,12 @@ class HTTPClient(object):
         #host, path, port = self.get_url_info(url)
 
         path = urlparse(url).path
-        host = urlparse(url).netloc
+        host = urlparse(url).hostname
 
         if urlparse(url).port != None:
             port = urlparse(url).port
         else:
             port = 80
-
 
 
         request = "GET " + path + " HTTP/1.1\r\n"\
@@ -129,7 +128,7 @@ class HTTPClient(object):
         #host, path, port = self.get_url_info(url)
 
         path = urlparse(url).path
-        host = urlparse(url).netloc
+        host = urlparse(url).hostname
 
         if urlparse(url).port != None:
             port = urlparse(url).port
