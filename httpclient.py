@@ -40,6 +40,7 @@ class HTTPClient(object):
         # use sockets!
         #if port == None:
         #    port = 80
+        # create socket, establish connection
         clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             clientSocket.connect((host,port))
@@ -97,7 +98,7 @@ class HTTPClient(object):
         body = ""
 
         #host, path, port = self.get_url_info(url)
-
+        #get path, host, port
         path = urlparse(url).path
         host = urlparse(url).hostname
 
@@ -142,7 +143,7 @@ class HTTPClient(object):
 
         content_length = str(len(content))
 
-        request = "POSE " + path + " HTTP/1.1\r\n"\
+        request = "POST " + path + " HTTP/1.1\r\n"\
                   "Host: " + host + "\r\n"\
                   "Accept: */*\r\n"\
                   "Content-Length: " + content_length + "\r\n"\
