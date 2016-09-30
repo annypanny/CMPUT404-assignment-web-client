@@ -23,6 +23,7 @@ import socket
 import re
 # you may use urllib to encode data appropriately
 import urllib
+from urlparse import urlparse
 
 def help():
     print "httpclient.py [GET/POST] [URL]\n"
@@ -73,28 +74,37 @@ class HTTPClient(object):
                 done = not part
         return str(buffer)
 
-    def get_url_info(self,url):
-        if url[:7] == "http://":
-            url = url[7:]
 
-        if "/" in url:
-            pos = url.index("/")
-            host = url[:pos]
-            path = url[pos:]
+#    def get_url_info(self,url):
+#        if url[:7] == "http://":
+#            url = url[7:]
 
-        if ":" in url:
-            pos = url.index(":")
-            host = url[:pos]
-            port = url[pos+1:]
+#        if "/" in url:
+#            pos = url.index("/")
+#            host = url[:pos]
+#            path = url[pos:]
 
-        return host, path, port
+#        if ":" in url:
+#            pos = url.index(":")
+#            host = url[:pos]
+#            port = url[pos+1:]
+
+#        return host, path, port
 
 
     def GET(self, url, args=None):
         code = 500
         body = ""
 
-        host, path, port = self.get_url_info(url)
+        #host, path, port = self.get_url_info(url)
+
+        path = urlparse(url).path
+        host = urlparse(url).netloc
+
+        if urlparse(url).port != None:
+            port = urlparse(url).port
+
+
 
         request = "GET " + path + " HTTP/1.1\r\n"\
                   "Host: " + host + "\r\n"\
@@ -114,7 +124,13 @@ class HTTPClient(object):
         code = 500
         body = ""
 
-        host, path, port = self.get_url_info(url)
+        #host, path, port = self.get_url_info(url)
+
+        path = urlparse(url).path
+        host = urlparse(url).netloc
+
+        if urlparse(url).port != None:
+            port = urlparse(url).port
 
         if args != None:
             content = urllib.urlencode(args)
